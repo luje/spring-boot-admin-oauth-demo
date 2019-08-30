@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring-boot-authorization
+
+server:
+  port: 9999
+  servlet:
+    session:
+      tracking-modes: COOKIE
+      cookie:
+        name: ${spring.application.name}SESSION
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,auditevents,configprops,env,,httptrace,loggers
+  endpoint:
+    health:
+      show-details: when_authorized
