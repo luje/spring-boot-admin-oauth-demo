@@ -12,9 +12,11 @@ public class ActuatorResourceServerConfigurer extends ResourceServerConfigurerAd
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .requestMatchers().antMatchers("/actuator/**")
+                .and()
                 .authorizeRequests()
                 .antMatchers("/actuator/info", "/actuator/health").permitAll()
-                .antMatchers("/actuator/**").authenticated()
+                .antMatchers("/actuator/**").hasAnyRole("ADMIN")
                 .and()
                 .httpBasic().disable()
                 .csrf().disable();

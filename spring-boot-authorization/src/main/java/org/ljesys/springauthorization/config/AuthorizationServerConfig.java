@@ -1,8 +1,6 @@
 package org.ljesys.springauthorization.config;
 
-import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -57,6 +55,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                         .secret(passwordEncoder.encode("actuator_password"))
                         .authorizedGrantTypes("client_credentials")
                         .autoApprove(true)
+                        .authorities("ADMIN")
                         .scopes("actuator");
     }
 
