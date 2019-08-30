@@ -4,7 +4,7 @@ server:
     session:
       tracking-modes: COOKIE
       cookie:
-        name: ${spring.application.name}SESSION
+        name: ${spring.application.name}-SESSION
 eureka:
   client:
     serviceUrl:

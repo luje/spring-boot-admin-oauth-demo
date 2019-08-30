@@ -38,6 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .successHandler(successHandler).permitAll()
                 .and()
+                .logout()
+                .deleteCookies("spring-boot-authorizatoin-SESSION", "spring-boot-admin-SESSION")
+                .invalidateHttpSession(true)
+                .and()
                 .csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .ignoringAntMatchers("/oauth/**");

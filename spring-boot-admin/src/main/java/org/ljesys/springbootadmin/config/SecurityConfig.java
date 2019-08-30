@@ -32,15 +32,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(adminContextPath + "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage(adminContextPath + "/login").successHandler(successHandler).and()
-                .logout().logoutUrl(adminContextPath + "/logout").and()
-                .httpBasic().and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringAntMatchers(
-                        adminContextPath + "/instances",
-                        adminContextPath + "/actuator/**"
-                );
+                    .formLogin()
+                        .loginPage(adminContextPath + "/login")
+                        .successHandler(successHandler)
+                .and()
+                    .logout()
+                        .logoutUrl(adminContextPath + "/logout")
+                        .deleteCookies("spring-boot-authorization-SESSION", "spring-boot-admin-SESSION")
+                        .invalidateHttpSession(true)
+                .and()
+                    .httpBasic()
+                .and()
+                    .csrf()
+                        .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                        .ignoringAntMatchers(
+                                adminContextPath + "/instances",
+                                adminContextPath + "/actuator/**"
+                        );
         // @formatter:on
     }
 
